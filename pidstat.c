@@ -66,6 +66,7 @@ long count = 0;
 unsigned int pidflag = 0;	/* General flags */
 unsigned int tskflag = 0;	/* TASK/CHILD stats */
 unsigned int actflag = 0;	/* Activity flag */
+unsigned int netflag = 0;	/* Network socket stats */
 
 struct sigaction alrm_act, int_act;
 int sigint_caught = 0;
@@ -86,7 +87,8 @@ void usage(char *progname)
 	fprintf(stderr, _("Options are:\n"
 			  "[ -d ] [ -h ] [ -I ] [ -l ] [ -r ] [ -s ] [ -t ] [ -U [ <username> ] ] [ -u ]\n"
 			  "[ -V ] [ -v ] [ -w ] [ -C <command> ] [ -p { <pid> [,...] | SELF | ALL } ]\n"
-			  "[ -T { TASK | CHILD | ALL } ]\n"));
+			  "[ -T { TASK | CHILD | ALL } ] "
+			  "[ -n { TCP | UDP | ALL } ]\n"));
 	exit(1);
 }
 
@@ -2377,6 +2379,27 @@ int main(int argc, char **argv)
 				else if (!strcmp(argv[opt], K_P_ALL)) {
 					tskflag |= P_TASK + P_CHILD;
 					dis_hdr++;
+				}
+				else {
+					usage(argv[0]);
+				}
+				opt++;
+			}
+			else {
+				usage(argv[0]);
+			}
+		}
+
+		else if (!strcmp(argv[opt], "-n")) {
+			if (argv[++opt]) {
+				if (netflag) {
+					dis_hdr++;
+				}
+				if (!strcmp(argv[opt], K_N_TCP)) {
+					netflag |= P_N_TCP;
+				}
+				if (!strcmp(argv[opt], K_P_NET_UDP)) {
+					netflag |= P_N_UDP;
 				}
 				else {
 					usage(argv[0]);

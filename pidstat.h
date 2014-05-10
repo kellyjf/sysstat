@@ -12,6 +12,8 @@
 #define K_P_TASK	"TASK"
 #define K_P_CHILD	"CHILD"
 #define K_P_ALL		"ALL"
+#define K_N_TCP		"TCP"
+#define K_N_UDP		"UDP"
 
 #define NR_PID_PREALLOC	10
 
@@ -26,6 +28,7 @@
 #define P_A_CTXSW	0x08
 #define P_A_STACK	0x10
 #define P_A_KTAB	0x20
+#define P_A_NET 	0x40
 
 #define DISPLAY_CPU(m)		(((m) & P_A_CPU) == P_A_CPU)
 #define DISPLAY_MEM(m)		(((m) & P_A_MEM) == P_A_MEM)
@@ -33,6 +36,7 @@
 #define DISPLAY_CTXSW(m)	(((m) & P_A_CTXSW) == P_A_CTXSW)
 #define DISPLAY_STACK(m)	(((m) & P_A_STACK) == P_A_STACK)
 #define DISPLAY_KTAB(m)		(((m) & P_A_KTAB) == P_A_KTAB)
+#define DISPLAY_NET(m)	 	(((m) & P_A_NET) == P_A_NET)
 
 /* TASK/CHILD */
 #define P_NULL		0x00
@@ -52,6 +56,10 @@
 #define P_D_CMDLINE	0x080
 #define P_D_USERNAME	0x100
 #define P_F_USERSTR	0x200
+
+
+#define P_N_TCP         0x01
+#define P_N_UDP         0x02
 
 #define DISPLAY_PID(m)		(((m) & P_D_PID) == P_D_PID)
 #define DISPLAY_ALL_PID(m)	(((m) & P_D_ALL_PID) == P_D_ALL_PID)
